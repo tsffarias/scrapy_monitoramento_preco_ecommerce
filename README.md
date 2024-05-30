@@ -1,0 +1,1 @@
+# scrapy_monitoramento_preco_ecommerce
