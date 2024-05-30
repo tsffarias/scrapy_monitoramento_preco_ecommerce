@@ -36,8 +36,12 @@ Desenvolvimento de um **dashboard interativo** usando **Streamlit** para consumi
 ## Estrutura de Diretórios
 
 ```plaintext
-scrapy_monitoramento_preco_ecommerce/
-├── scrapy_monitoramento/
+.
+├── data
+│   ├── data.json
+│   └── quotes.db
+src/
+├── coleta/
 │   ├── spiders/
 │   │   └── preco_spider.py
 │   ├── pipelines.py
@@ -70,7 +74,7 @@ Em seguida, para executar cada etapa, siga as instruções abaixo:
 ### Extração dos dados usando Web Scraping
 
 ```sh
-scrapy crawl preco_spider -o ../data/data.json
+scrapy crawl mercadolivre -o ../data/data.json
 ```
 
 ### Transformar e carregar os dados
