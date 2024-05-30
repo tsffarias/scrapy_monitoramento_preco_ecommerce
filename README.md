@@ -1,10 +1,10 @@
 # Projeto de ETL para Monitoramento de Preços e Produtos E-commerce
 
-## Proposta do Projeto
+## Descrição
 
 Imagine que uma marca de tênis deseja avaliar sua relevância no ecossistema do Mercado Livre, Amazon, Magalu, Shopee e Centauro. Para isso, é necessário obter **KPIs** relacionados ao segmento de tênis nessas plataformas. O objetivo é coletar informações detalhadas e implementar um dashboard que facilite a visualização e análise desses dados.
 
-## Por que vamos fazer isso?
+## Proposta do Projeto
 
 Fomos contratados por uma grande empresa para fazer uma pesquisa de mercado na categoria de tênis esportivos dentro de diversos e-commerces: Mercado Livre, Amazon, Magalu, Shopee, Centauro. O objetivo dessa empresa é avaliar:
 - 👟 Quais marcas são mais encontradas até a 10ª página
