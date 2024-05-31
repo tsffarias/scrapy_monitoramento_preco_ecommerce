@@ -60,6 +60,7 @@ setuptools==70.0.0
 six==1.16.0
 smmap==5.0.1
 streamlit==1.35.0
+streamlit-option-menu==0.3.13
 tenacity==8.3.0
 tldextract==5.1.2
 toml==0.10.2
