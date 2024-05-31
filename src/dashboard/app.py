@@ -197,7 +197,7 @@ class Dashboard:
                                     .to_frame()
                                     .reset_index())
         top_10_pages_brands.columns = ['marca', 'contagem']
-        fig = px.bar(top_10_pages_brands, x='marca', y='contagem', text_auto='.2s')
+        fig = px.bar(top_10_pages_brands, x='marca', y='contagem', text_auto='.3s')
         top_10_pages_brands_table = df['brand'].value_counts().sort_values(ascending=False)
         
         col1.plotly_chart(fig)
@@ -215,7 +215,7 @@ class Dashboard:
                                         .to_frame()
                                         .reset_index())
         average_price_by_brand.columns = ['marca', 'preco_medio_novo']
-        fig1 = px.bar(average_price_by_brand, x='marca', y='preco_medio_novo', text_auto='.2s')
+        fig1 = px.bar(average_price_by_brand, x='marca', y='preco_medio_novo', text_auto='.3s')
         average_price_by_brand_table = df.groupby('brand')['new_price'].mean().sort_values(ascending=False)
 
         col1.plotly_chart(fig1)
@@ -236,7 +236,7 @@ class Dashboard:
                                         .to_frame()
                                         .reset_index())
         satisfaction_by_brand.columns = ['marca', 'media_avaliacoes']
-        fig2 = px.bar(satisfaction_by_brand, x='marca', y='media_avaliacoes', text_auto='.2s')
+        fig2 = px.bar(satisfaction_by_brand, x='marca', y='media_avaliacoes', text_auto='.3s')
         satisfaction_by_brand_table = df_non_zero_reviews.groupby('brand')['reviews_rating_number'].mean().sort_values(ascending=False)
 
         col1.plotly_chart(fig2)
