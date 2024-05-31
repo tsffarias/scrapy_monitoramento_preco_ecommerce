@@ -33,6 +33,10 @@ Desenvolvimento de um **dashboard interativo** usando **Streamlit** para consumi
 - **Streamlit**: Framework utilizado para criar aplicações web interativas e visualizar os dados extraídos.
 - **SQLite3**: Banco de dados utilizado para armazenar os dados transformados.
 
+### Diagrama
+
+![arquitetura](/pics/arquitetura.png)
+
 ## Estrutura de Diretórios
 
 ```plaintext
