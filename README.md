@@ -74,13 +74,14 @@ Em seguida, para executar cada etapa, siga as instruções abaixo:
 ### Extração dos dados usando Web Scraping
 
 ```sh
-scrapy crawl mercadolivre -o ../data/data.json
+cd src/coleta/
+scrapy crawl mercadolivre -o ../../data/mercado_livre.jsonl
 ```
 
 ### Transformar e carregar os dados
 
 ```sh
-python transformacao/transform.py
+python src/transformacao/mercado_livre.py
 ```
 
 ### Visualizar Dashboard

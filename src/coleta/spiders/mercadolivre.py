@@ -1,4 +1,5 @@
 import scrapy
+from datetime import datetime
 
 class MercadolivreSpider(scrapy.Spider):
     name = 'mercadolivre'
@@ -23,8 +24,9 @@ class MercadolivreSpider(scrapy.Spider):
                 'reviews_rating_number': product.css('span.ui-search-reviews__rating-number::text').get(),
                 'reviews_amount': product.css('span.ui-search-reviews__amount::text').get(),
                 'page_count': self.page_count,
-                'source_name': self.name,
-                'source_link': self.start_urls
+                '_source_name': self.name,
+                '_source_link': self.start_urls[0],
+                '_data_coleta': datetime.now()
             }
 
         if self.page_count < self.max_pages:
