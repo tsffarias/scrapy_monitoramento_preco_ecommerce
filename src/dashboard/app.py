@@ -45,6 +45,8 @@ class Dashboard:
         average_new_price = df['new_price'].mean()
         col3.metric(label="Preço Médio Novo (R$)", value=f"{average_new_price:.2f}")
 
+        st.divider()
+
         # Quais marcas são mais encontradas até a 10ª página
         st.subheader('Marcas mais encontradas até a 10ª página')
         col1, col2 = st.columns([4, 2])
@@ -61,6 +63,8 @@ class Dashboard:
         col1.plotly_chart(fig)
         col2.write(top_10_pages_brands_table)
 
+        st.divider()
+
         # Qual o preço médio por marca
         st.subheader('Preço médio por marca')
         col1, col2 = st.columns([4, 2])
@@ -76,6 +80,8 @@ class Dashboard:
 
         col1.plotly_chart(fig1)
         col2.write(average_price_by_brand_table)
+
+        st.divider()
 
         # Qual a satisfação por marca
         st.subheader('Satisfação por marca')
