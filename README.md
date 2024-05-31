@@ -50,6 +50,7 @@ Desenvolvimento de um **dashboard interativo** usando **Streamlit** para consumi
 src/
 ├── coleta/
 │   ├── spiders/
+│   │   └── centauro.py
 │   │   └── mercadolivre.py
 │   ├── pipelines.py
 │   ├── items.py
@@ -83,12 +84,14 @@ Em seguida, para executar cada etapa, siga as instruções abaixo:
 ```sh
 cd src/coleta/
 scrapy crawl mercadolivre -o ../../data/mercado_livre.jsonl
+scrapy crawl centauro -o ../../data/centauro.jsonl
 ```
 
 ### Transformar e carregar os dados
 
 ```sh
 python src/transformacao/mercado_livre.py
+python src/transformacao/centauro.jsonl
 ```
 
 ### Visualizar Dashboard
