@@ -29,14 +29,22 @@ class Dashboard:
 
         #Options Menu
         with st.sidebar:
-            selected = option_menu('WebScraping', ["Home", 'Mercado Livre', 'Sobre'], 
-                icons=['house', 'search', 'info-circle'], menu_icon='intersect', default_index=0)
+            selected = option_menu('WebScraping', ["Home", 'Mercado Livre', 'Amazon', 'Magalu', 'Shopee', 'Centauro', 'Sobre'], 
+                icons=['house', 'search', 'search', 'search', 'search', 'search', 'info-circle'], menu_icon='intersect', default_index=0)
             
-        #Intro Page
+        # Menu Lateral
         if selected=="Home":
             self.home()
         elif selected=="Mercado Livre":
             self.mercado_livre(df)
+        elif selected=="Amazon":
+            self.amazon(df)
+        elif selected=="Magalu":
+            self.magalu(df)
+        elif selected=="Shopee":
+            self.shopee(df)
+        elif selected=="Centauro":
+            self.centauro(df)
         else:
             self.about()
                
@@ -92,7 +100,7 @@ class Dashboard:
     def about(self):
         
         st.title('Data')
-        #st.subheader('All data for this project was publicly sourced from:')
+        
         col1,col2,col3=st.columns(3)
         col1.subheader('Fonte')
         col2.subheader('Descrição')
@@ -105,25 +113,25 @@ class Dashboard:
         
         with st.container():
             col1,col2,col3=st.columns(3)
-            col1.write(':blue[Centauro]')
+            col1.write(':blue[Amazon]')
             col2.write('Setor de Tenis corrida masculino')
             col3.write('https://data.cdc.gov/')
         
         with st.container():
             col1,col2,col3=st.columns(3)
-            col1.write(':blue[Amazon]')
+            col1.write(':blue[Magalu]')
             col2.write('Setor de Tenis corrida masculino')
             col3.write('https://www.huduser.gov/portal/datasets/')
 
         with st.container():
             col1,col2,col3=st.columns(3)
-            col1.write(':blue[Magalu]')
+            col1.write(':blue[Shopee]')
             col2.write('Setor de Tenis corrida masculino')
             col3.write('https://data.opendatasoft.com/pages/home/')
 
         with st.container():
             col1,col2,col3=st.columns(3)
-            col1.write(':blue[Shopee]')
+            col1.write(':blue[Centauro]')
             col2.write('Setor de Tenis corrida masculino')
             col3.write('https://data.opendatasoft.com/pages/home/')
         
@@ -145,15 +153,13 @@ class Dashboard:
                 """
                 ![Alt Text](https://www.scrapehero.com/wp/wp-content/uploads/2019/05/api-gif.gif)
                 """
-            )
-            
-            
+            )        
 
     def mercado_livre(self, df):
         # Título da aplicação
         st.title('Pesquisa de Mercado - Tênis Esportivos no Mercado Livre')
     
-        # Código HTML para centralizar a imagem
+        # Imagem Logo e-commerce
         image_html = """
         <div style="text-align: center;">
             <img src="https://logopng.com.br/logos/mercado-livre-87.png" width="350" alt="Mercado Livre">
@@ -182,7 +188,7 @@ class Dashboard:
         st.divider()
 
         # Quais marcas são mais encontradas até a 10ª página
-        st.subheader('Marcas mais encontradas até a 10ª página')
+        st.subheader('👟 Marcas mais encontradas até a 10ª página')
         col1, col2 = st.columns([4, 2])
         top_10_pages_brands = (df['brand']
                                     .value_counts()
@@ -200,7 +206,7 @@ class Dashboard:
         st.divider()
 
         # Qual o preço médio por marca
-        st.subheader('Preço médio por marca')
+        st.subheader('💰 Preço médio por marca')
         col1, col2 = st.columns([4, 2])
         average_price_by_brand = (df.groupby('brand')['new_price']
                                         .mean()
@@ -218,7 +224,7 @@ class Dashboard:
         st.divider()
 
         # Qual a satisfação por marca
-        st.subheader('Satisfação por marca')
+        st.subheader('⭐ Satisfação por marca')
         col1, col2 = st.columns([4, 2])
         df_non_zero_reviews = df[df['reviews_rating_number'] > 0]
         satisfaction_by_brand = (df_non_zero_reviews
@@ -235,6 +241,58 @@ class Dashboard:
 
         col1.plotly_chart(fig2)
         col2.write(satisfaction_by_brand_table)
+
+    def amazon(self, df):
+        # Título da aplicação
+        st.title('Pesquisa de Mercado - Tênis Esportivos na Amazon')
+
+        # Imagem Logo e-commerce
+        image_html = """
+        <div style="text-align: center;">
+            <img src="https://cdn4.iconfinder.com/data/icons/flat-brand-logo-2/512/amazon-512.png" width="350" alt="Amazon">
+        </div>
+        """ 
+        # Renderiza o HTML na barra lateral
+        st.sidebar.markdown(image_html, unsafe_allow_html=True)
+
+    def magalu(self, df):
+        # Título da aplicação
+        st.title('Pesquisa de Mercado - Tênis Esportivos na Magalu')  
+
+        # Imagem Logo e-commerce
+        image_html = """
+        <div style="text-align: center;">
+            <img src="https://images.tcdn.com.br/img/editor/up/691794/MagaluLogotipo1920x1080.png" width="350" alt="Magalu">
+        </div>
+        """ 
+        # Renderiza o HTML na barra lateral
+        st.sidebar.markdown(image_html, unsafe_allow_html=True) 
+
+    def shopee(self, df):
+        # Título da aplicação
+        st.title('Pesquisa de Mercado - Tênis Esportivos na Shopee') 
+
+        # Imagem Logo e-commerce
+        image_html = """
+        <div style="text-align: center;">
+            <img src="https://i.pinimg.com/originals/05/7b/27/057b274c134bcf92ac151758478949b3.png" width="350" alt="Shopee">
+        </div>
+        """ 
+        # Renderiza o HTML na barra lateral
+        st.sidebar.markdown(image_html, unsafe_allow_html=True)   
+
+    def centauro(self, df):
+        # Título da aplicação
+        st.title('Pesquisa de Mercado - Tênis Esportivos na Centauro')
+
+        # Imagem Logo e-commerce
+        image_html = """
+        <div style="text-align: center;">
+            <img src="https://logodownload.org/wp-content/uploads/2017/08/centauro-logo-01.png" width="350" alt="Centauro">
+        </div>
+        """ 
+        # Renderiza o HTML na barra lateral
+        st.sidebar.markdown(image_html, unsafe_allow_html=True)    
 
 if __name__ == "__main__":
     Dashboard()
