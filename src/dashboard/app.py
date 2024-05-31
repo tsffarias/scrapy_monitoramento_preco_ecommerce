@@ -1,15 +1,46 @@
-import streamlit as st
 import pandas as pd
 import sqlite3
 import os
 import plotly.express as px
+import streamlit as st
+from streamlit_option_menu import option_menu
 
 class Dashboard:
 
     def __init__(self):
         df = self.connect_db()
-        self.dashboard(df)
+        self.layout(df)
+        
+        #self.dashboard(df)
 
+    def layout(self, df):
+        st.set_page_config(
+            page_title="WebScraping",
+            layout="wide",
+            initial_sidebar_state="expanded")
+
+        st.markdown("""
+        <style>
+        .big-font {
+            font-size:80px !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
+        #Options Menu
+        with st.sidebar:
+            selected = option_menu('WebScraping', ["Home", 'Mercado Livre', 'Sobre'], 
+                icons=['house', 'search', 'info-circle'], menu_icon='intersect', default_index=0)
+            
+        #Intro Page
+        if selected=="Home":
+            self.home()
+        elif selected=="Mercado Livre":
+            self.mercado_livre(df)
+        else:
+            self.about()
+               
+    
     def connect_db(self):
         relative_path_db_mercado_livre = '../../data/quotes.db'
         db_path = os.path.abspath(os.path.join(os.path.dirname(__file__), relative_path_db_mercado_livre))
@@ -25,9 +56,112 @@ class Dashboard:
         
         return df
 
-    def dashboard(self, df):
+    def home(self):
+        #Header
+        st.title('Monitoramento de Preços e Produtos E-commerce')
+        st.subheader('*Pesquisa de Mercado - Tênis Esportivos 👟*')
+
+        st.divider()
+
+        #Use Cases
+        with st.container():
+            col1,col2=st.columns(2)
+            with col1:
+                st.header('Descrição')
+                st.markdown(
+                        """
+                        Imagine que uma marca de tênis deseja avaliar sua relevância no ecossistema do Mercado Livre, Amazon, Magalu, Shopee e Centauro. 
+                        Para isso, é necessário obter KPIs relacionados ao segmento de tênis nessas plataformas. 
+                        O objetivo deste projeto é coletar informações detalhadas e implementar um dashboard que facilite a visualização e análise desses dados.
+                    
+                        ## Proposta do Projeto
+
+                        Fomos contratados por uma grande empresa para fazer uma pesquisa de mercado na categoria de tênis esportivos dentro de diversos e-commerces: Mercado Livre, Amazon, Magalu, Shopee, Centauro. O objetivo dessa empresa é avaliar:
+                        - 👟 Quais marcas são mais encontradas até a 10ª página
+                        - 💰 Qual o preço médio por marca
+                        - ⭐ Qual a satisfação por marca
+                        """
+                        )
+            with col2:
+                st.markdown(
+                        """
+                        ![Alt Text](https://www.scrapehero.com/wp/wp-content/uploads/2019/05/price-monitoring.gif)
+                        """
+                )
+
+    def about(self):
+        
+        st.title('Data')
+        #st.subheader('All data for this project was publicly sourced from:')
+        col1,col2,col3=st.columns(3)
+        col1.subheader('Fonte')
+        col2.subheader('Descrição')
+        col3.subheader('Link')
+        with st.container():
+            col1,col2,col3=st.columns(3)
+            col1.write(':blue[Mercado Livre]')
+            col2.write('Setor de Tenis corrida masculino')
+            col3.write('https://lista.mercadolivre.com.br/tenis-corrida-masculino')
+        
+        with st.container():
+            col1,col2,col3=st.columns(3)
+            col1.write(':blue[Centauro]')
+            col2.write('Setor de Tenis corrida masculino')
+            col3.write('https://data.cdc.gov/')
+        
+        with st.container():
+            col1,col2,col3=st.columns(3)
+            col1.write(':blue[Amazon]')
+            col2.write('Setor de Tenis corrida masculino')
+            col3.write('https://www.huduser.gov/portal/datasets/')
+
+        with st.container():
+            col1,col2,col3=st.columns(3)
+            col1.write(':blue[Magalu]')
+            col2.write('Setor de Tenis corrida masculino')
+            col3.write('https://data.opendatasoft.com/pages/home/')
+
+        with st.container():
+            col1,col2,col3=st.columns(3)
+            col1.write(':blue[Shopee]')
+            col2.write('Setor de Tenis corrida masculino')
+            col3.write('https://data.opendatasoft.com/pages/home/')
+        
+        
+        
+        st.divider()
+        
+        st.title('Criador')
+        with st.container():
+            col1, col2= st.columns(2)
+            col1.write('')
+            col1.write('**Nome:** Thiago Silva Farias')
+            col1.write('**Educação:**  Sistemas de Informações - UFMS')
+            col1.write('**Experiencia:**  Analista de Dados e futuro Analytics Engineer')
+            col1.write('**Contato:** [Linkedin](https://www.linkedin.com/in/thiagosilvafarias/)')
+            col1.write('**Obrigado pela visita!**')
+
+            col2.markdown(
+                """
+                ![Alt Text](https://www.scrapehero.com/wp/wp-content/uploads/2019/05/api-gif.gif)
+                """
+            )
+            
+            
+
+    def mercado_livre(self, df):
         # Título da aplicação
         st.title('Pesquisa de Mercado - Tênis Esportivos no Mercado Livre')
+    
+        # Código HTML para centralizar a imagem
+        image_html = """
+        <div style="text-align: center;">
+            <img src="https://logopng.com.br/logos/mercado-livre-87.png" width="350" alt="Mercado Livre">
+        </div>
+        """
+
+        # Renderiza o HTML na barra lateral
+        st.sidebar.markdown(image_html, unsafe_allow_html=True)
 
         # Melhorar o layout com colunas para KPIs
         st.subheader("KPIs Principais")
