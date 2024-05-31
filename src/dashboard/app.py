@@ -108,32 +108,32 @@ class Dashboard:
         with st.container():
             col1,col2,col3=st.columns(3)
             col1.write(':blue[Mercado Livre]')
-            col2.write('Setor de Tenis corrida masculino')
+            col2.write('Setor de Tênis corrida masculino')
             col3.write('https://lista.mercadolivre.com.br/tenis-corrida-masculino')
         
         with st.container():
             col1,col2,col3=st.columns(3)
             col1.write(':blue[Amazon]')
-            col2.write('Setor de Tenis corrida masculino')
+            col2.write('Setor de Tênis corrida masculino')
             col3.write('https://data.cdc.gov/')
         
         with st.container():
             col1,col2,col3=st.columns(3)
             col1.write(':blue[Magalu]')
-            col2.write('Setor de Tenis corrida masculino')
+            col2.write('Setor de Tênis corrida masculino')
             col3.write('https://www.huduser.gov/portal/datasets/')
 
         with st.container():
             col1,col2,col3=st.columns(3)
             col1.write(':blue[Shopee]')
-            col2.write('Setor de Tenis corrida masculino')
+            col2.write('Setor de Tênis corrida masculino')
             col3.write('https://data.opendatasoft.com/pages/home/')
 
         with st.container():
             col1,col2,col3=st.columns(3)
             col1.write(':blue[Centauro]')
-            col2.write('Setor de Tenis corrida masculino')
-            col3.write('https://data.opendatasoft.com/pages/home/')
+            col2.write('Setor de Tênis para academia masculino')
+            col3.write('https://www.centauro.com.br/nav/produto/tenis/esportes/academiafitness/genero/masculino')
         
         
         

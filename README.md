@@ -50,7 +50,7 @@ Desenvolvimento de um **dashboard interativo** usando **Streamlit** para consumi
 src/
 ├── coleta/
 │   ├── spiders/
-│   │   └── preco_spider.py
+│   │   └── mercadolivre.py
 │   ├── pipelines.py
 │   ├── items.py
 │   ├── settings.py
