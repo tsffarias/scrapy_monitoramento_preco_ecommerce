@@ -87,5 +87,5 @@ python src/transformacao/mercado_livre.py
 ### Visualizar Dashboard
 
 ```sh
-streamlit run dashboard/app.py
+streamlit run src/dashboard/app.py
 ```
