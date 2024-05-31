@@ -37,6 +37,9 @@ Desenvolvimento de um **dashboard interativo** usando **Streamlit** para consumi
 
 ![arquitetura](/pics/arquitetura.png)
 
+### Dashboard
+- Imagem Dashboard aqui (...em desenvolvimento)
+
 ## Estrutura de Diretórios
 
 ```plaintext
