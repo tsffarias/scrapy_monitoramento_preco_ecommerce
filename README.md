@@ -47,18 +47,27 @@ Desenvolvimento de um **dashboard interativo** usando **Streamlit** para consumi
 ├── data
 │   ├── centauro.jsonl
 │   ├── mercado_livre.jsonl
+│   ├── amazon.jsonl
+│   ├── magalu.jsonl
+│   ├── shopee.jsonl
 │   └── quotes.db
 src/
 ├── coleta/
 │   ├── spiders/
 │   │   └── centauro.py
 │   │   └── mercadolivre.py
+│   │   └── amazon.py
+│   │   └── magalu.py
+│   │   └── shopee.py
 │   ├── pipelines.py
 │   ├── items.py
 │   ├── settings.py
 ├── transformacao/
 │   ├── centauro.py
-│   ├── transform.py
+│   ├── mercadolivre.py
+│   ├── amazon.py
+│   ├── magalu.py
+│   ├── shopee.py
 ├── dashboard/
 │   ├── app.py
 ├── requirements.txt
@@ -87,6 +96,9 @@ Em seguida, para executar cada etapa, siga as instruções abaixo:
 cd src/coleta/
 scrapy crawl mercadolivre -o ../../data/mercado_livre.jsonl
 scrapy crawl centauro -o ../../data/centauro.jsonl
+scrapy crawl amazon -o ../../data/amazon.jsonl
+scrapy crawl magalu -o ../../data/magalu.jsonl
+scrapy crawl shopee -o ../../data/shopee.jsonl
 ```
 
 ### Transformar e carregar os dados
@@ -94,6 +106,9 @@ scrapy crawl centauro -o ../../data/centauro.jsonl
 ```sh
 python src/transformacao/mercado_livre.py
 python src/transformacao/centauro.py
+python src/transformacao/amazon.py
+python src/transformacao/magalu.py
+python src/transformacao/shopee.py
 ```
 
 ### Visualizar Dashboard
