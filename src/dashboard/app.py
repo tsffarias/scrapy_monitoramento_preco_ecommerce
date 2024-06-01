@@ -29,7 +29,13 @@ class Dashboard:
         #Options Menu
         with st.sidebar:
             selected = option_menu('WebScraping', ["Home", 'Mercado Livre', 'Amazon', 'Magalu', 'Shopee', 'Centauro', 'Sobre'], 
-                icons=['house', 'search', 'search', 'search', 'search', 'search', 'info-circle'], menu_icon='intersect', default_index=0)
+                icons=['house', 'search', 'search', 'search', 'search', 'search', 'info-circle'], menu_icon='intersect', default_index=0,
+                styles={
+                        "container": {"background-color": "#fafafa"},
+                        "nav-link": {"--hover-color": "#eee"},
+                        "nav-link-selected": {"background-color": "#0068C9"},
+                    }
+                )
             
         # Menu Lateral
         if selected=="Home":
