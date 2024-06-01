@@ -114,19 +114,19 @@ class Dashboard:
             col1,col2,col3=st.columns(3)
             col1.write(':blue[Amazon]')
             col2.write('Setor de Tênis corrida masculino')
-            col3.write('https://data.cdc.gov/')
+            col3.write('https://amzn.to/3Vl7Wii')
         
         with st.container():
             col1,col2,col3=st.columns(3)
             col1.write(':blue[Magalu]')
             col2.write('Setor de Tênis corrida masculino')
-            col3.write('https://www.huduser.gov/portal/datasets/')
+            col3.write('https://www.magazineluiza.com.br/busca/tenis%2Bmasculino/?from=clickSuggestion&filters=category---ES%2Bsubcategory---ELNN')
 
         with st.container():
             col1,col2,col3=st.columns(3)
             col1.write(':blue[Shopee]')
             col2.write('Setor de Tênis corrida masculino')
-            col3.write('https://data.opendatasoft.com/pages/home/')
+            col3.write('https://shopee.com.br/search?facet=11062129&keyword=tenis%20masculino%20esportivo&noCorrection=true&page=0')
 
         with st.container():
             col1,col2,col3=st.columns(3)
