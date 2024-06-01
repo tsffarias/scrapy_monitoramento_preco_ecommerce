@@ -44,13 +44,15 @@ Desenvolvimento de um **dashboard interativo** usando **Streamlit** para consumi
 
 ```plaintext
 .
-├── data
-│   ├── centauro.jsonl
-│   ├── mercado_livre.jsonl
-│   ├── amazon.jsonl
-│   ├── magalu.jsonl
-│   ├── shopee.jsonl
-│   └── quotes.db
+data/
+│── centauro.jsonl
+│── mercado_livre.jsonl
+│── amazon.jsonl
+│── magalu.jsonl
+│── shopee.jsonl
+│── quotes.db
+pics/
+│── arquitetura.png
 src/
 ├── coleta/
 │   ├── spiders/
