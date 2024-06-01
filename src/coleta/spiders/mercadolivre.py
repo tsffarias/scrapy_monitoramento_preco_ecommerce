@@ -1,5 +1,6 @@
 import scrapy
 from datetime import datetime
+import re
 
 class MercadolivreSpider(scrapy.Spider):
     name = 'mercadolivre'

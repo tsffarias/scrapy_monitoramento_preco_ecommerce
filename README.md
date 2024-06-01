@@ -45,7 +45,8 @@ Desenvolvimento de um **dashboard interativo** usando **Streamlit** para consumi
 ```plaintext
 .
 ├── data
-│   ├── data.json
+│   ├── centauro.jsonl
+│   ├── mercado_livre.jsonl
 │   └── quotes.db
 src/
 ├── coleta/
@@ -56,6 +57,7 @@ src/
 │   ├── items.py
 │   ├── settings.py
 ├── transformacao/
+│   ├── centauro.py
 │   ├── transform.py
 ├── dashboard/
 │   ├── app.py

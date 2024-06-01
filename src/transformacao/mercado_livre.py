@@ -22,9 +22,6 @@ else:
         # Ler os dados do arquivo JSONL
         df = pd.read_json(jsonl_path, lines=True)
 
-        # Exibir o DataFrame resultante
-        print(df.head())
-
         # Tratar os valores nulos para colunas numéricas e de texto
         df['old_price_reais'] = df['old_price_reais'].fillna(0).astype(float)
         df['old_price_centavos'] = df['old_price_centavos'].fillna(0).astype(float)
@@ -54,9 +51,6 @@ else:
         
         # Configurar pandas para mostrar todas as colunas
         pd.options.display.max_columns = None
-
-        # Exibir o DataFrame resultante
-        print(df.head())
 
     except ValueError as e:
         print("Erro ao ler o arquivo JSONL:", e)
