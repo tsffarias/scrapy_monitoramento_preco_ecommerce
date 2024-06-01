@@ -93,7 +93,7 @@ scrapy crawl centauro -o ../../data/centauro.jsonl
 
 ```sh
 python src/transformacao/mercado_livre.py
-python src/transformacao/centauro.jsonl
+python src/transformacao/centauro.py
 ```
 
 ### Visualizar Dashboard

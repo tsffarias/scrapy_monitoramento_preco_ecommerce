@@ -36,6 +36,11 @@ else:
         df['new_price_reais'] = clean_price(df['new_price_reais'])
         df['old_price_reais'] = clean_price(df['old_price_reais'])
 
+        # Tratar os valores nulos para colunas numéricas e de texto
+        df['old_price_reais'] = df['old_price_reais'].fillna(0).astype(float)
+        df['new_price_reais'] = df['new_price_reais'].fillna(0).astype(float)
+        df['reviews_rating_number'] = df['reviews_rating_number'].fillna(0).astype(float)
+
         # Substitindo nome marcas 
         df.loc[df['brand'] == 'New', 'brand'] = 'New Balance'
         df.loc[df['brand'] == 'adidas', 'brand'] = 'Adidas'
