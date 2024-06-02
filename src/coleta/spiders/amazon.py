@@ -3,11 +3,44 @@ import json
 import scrapy
 from urllib.parse import urljoin
 import re
+from datetime import datetime
 
 class AmazonSearchProductSpider(scrapy.Spider):
     name = "amazon"
-    start_urls = ['https://www.amazon.com.br/']
+    allowed_domains = ["https://www.amazon.com.br/"]
+    start_urls = ['https://www.amazon.com.br/b?node=17682460011&ref=lp_17682152011_nr_n_3']
+    page_count = 1
+    max_pages = 10
 
+    def parse(self, response):
+        # Pegue os links para as páginas dos produtos
+        product_links = response.css('a.sc-eBMEME::attr(href)').getall()
+        for link in product_links:
+            yield response.follow(link, callback=self.parse_product)
+
+        # Verifica se deve continuar para a próxima página
+        '''
+        if self.page_count < self.max_pages:
+            self.page_count += 1
+            next_page = self.start_urls[0] + f'&page={self.page_count}' # padrão link + &page=numero
+            yield response.follow(next_page, callback=self.parse)
+        '''
+
+    def parse_product(self, response):
+
+        yield {
+            'brand': response.css('div[id=bylineInfo_feature_div] a[id=bylineInfo]::text').get(),
+            'name': response.css('span[id=productTitle]::text').get().strip(),
+            #'new_price_reais': ,
+            'reviews_rating_number': response.css('div[id=averageCustomerReviews] span.a-size-base.a-color-base::text').get().strip(),
+            'reviews_amount': response.css('div[id=averageCustomerReviews] span[id=acrCustomerReviewText]::text').get().strip(),
+            'page_count': self.page_count,
+            '_source_name': self.name,
+            '_source_link': self.start_urls[0],
+            '_data_coleta': datetime.now()
+        }
+
+    '''
     def start_requests(self):
         keyword_list = ['Tênis masculino corrida']
         for keyword in keyword_list:
@@ -48,4 +81,4 @@ class AmazonSearchProductSpider(scrapy.Spider):
             "reviews_rating_number": response.css("i[data-hook=average-star-rating] ::text").get("").strip(),
             "rating_count": response.css("div[data-hook=total-review-count] ::text").get("").strip()
         }
-    
+    '''

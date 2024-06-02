@@ -17,7 +17,7 @@ class ShopeeSpider(scrapy.Spider):
     # test.css('a.smarthint-tracking-card')[0].get()
     # test.css('a.smarthint-tracking-card div.item-card__description__product-name span::text')[0].get() -- nome produto
     # 
-
+    '''
     def parse(self, response):
         
         products = response.css("li.shopee-search-item-result__item")
@@ -26,7 +26,7 @@ class ShopeeSpider(scrapy.Spider):
             prices = product.css('div._1Mfhcw.hVNzu-.G+ZP8F::text').getall()
             
             print(prices)
-            '''
+            
             yield {
                 'brand': product.css('::text').get(),
                 'name': product.css('::text').get(),

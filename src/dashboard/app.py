@@ -124,7 +124,7 @@ class Dashboard:
             col1,col2,col3=st.columns(3)
             col1.write(':blue[Amazon]')
             col2.write('Setor de Tênis corrida masculino')
-            col3.write('https://amzn.to/3Vl7Wii')
+            col3.write('https://amzn.to/3V9Owvg')
         
         with st.container():
             col1,col2,col3=st.columns(3)
