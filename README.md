@@ -6,10 +6,18 @@ Imagine que uma marca de tênis deseja avaliar sua relevância no ecossistema do
 
 ## Proposta do Projeto
 
-Fomos contratados por uma grande empresa para fazer uma pesquisa de mercado na categoria de tênis esportivos dentro de diversos e-commerces: Mercado Livre, Amazon, Magalu, Shopee, Centauro. O objetivo dessa empresa é avaliar:
+Fomos contratados por uma grande empresa para fazer uma pesquisa de mercado na categoria de tênis esportivos dentro de diversos e-commerces: Mercado Livre, Amazon, Magalu, Shopee, Centauro e Netshoes. O objetivo dessa empresa é avaliar:
 - 👟 Quais marcas são mais encontradas até a 10ª página
 - 💰 Qual o preço médio por marca
 - ⭐ Qual a satisfação por marca
+
+# Fontes de Dados
+- Mercado Livre
+- Amazon
+- Magalu
+- Shopee
+- Centauro
+- Netshoes
 
 ## Etapas do Projeto
 
@@ -50,6 +58,7 @@ data/
 │── amazon.jsonl
 │── magalu.jsonl
 │── shopee.jsonl
+│── netshoes.jsonl
 │── quotes.db
 pics/
 │── arquitetura.png
@@ -61,6 +70,7 @@ src/
 │   │   └── amazon.py
 │   │   └── magalu.py
 │   │   └── shopee.py
+│   │   └── netshoes.py
 │   ├── pipelines.py
 │   ├── items.py
 │   ├── settings.py
@@ -70,6 +80,7 @@ src/
 │   ├── amazon.py
 │   ├── magalu.py
 │   ├── shopee.py
+│   ├── netshoes.py
 ├── dashboard/
 │   ├── app.py
 ├── requirements.txt
@@ -101,6 +112,7 @@ scrapy crawl centauro -o ../../data/centauro.jsonl
 scrapy crawl amazon -o ../../data/amazon.jsonl
 scrapy crawl magalu -o ../../data/magalu.jsonl
 scrapy crawl shopee -o ../../data/shopee.jsonl
+scrapy crawl netshoes -o ../../data/netshoes.jsonl
 ```
 
 ### Transformar e carregar os dados
@@ -111,6 +123,7 @@ python src/transformacao/centauro.py
 python src/transformacao/amazon.py
 python src/transformacao/magalu.py
 python src/transformacao/shopee.py
+python src/transformacao/netshoes.py
 ```
 
 ### Visualizar Dashboard
