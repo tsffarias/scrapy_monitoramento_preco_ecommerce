@@ -45,6 +45,7 @@ class Dashboard:
         elif selected=="Amazon":
             self.amazon(df)
         elif selected=="Magalu":
+            df = self.connect_db('magalu_items')
             self.magalu(df)
         elif selected=="Shopee":
             self.shopee(df)
@@ -399,6 +400,8 @@ class Dashboard:
         """ 
         # Renderiza o HTML na barra lateral
         st.sidebar.markdown(image_html, unsafe_allow_html=True) 
+
+        self.dashboard_elements(df)
 
     def shopee(self, df):
         # Título da aplicação
