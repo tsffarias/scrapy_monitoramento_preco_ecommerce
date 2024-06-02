@@ -2,27 +2,25 @@
 
 ## Descrição
 
-Imagine que uma marca de tênis deseja avaliar sua relevância no ecossistema do Mercado Livre, Amazon, Magalu, Shopee e Centauro. Para isso, é necessário obter **KPIs** relacionados ao segmento de tênis nessas plataformas. O objetivo é coletar informações detalhadas e implementar um dashboard que facilite a visualização e análise desses dados.
+Imagine que uma marca de tênis deseja avaliar sua relevância no ecossistema do Mercado Livre, Magalu, Centauro e Netshoes. Para isso, é necessário obter **KPIs** relacionados ao segmento de tênis nessas plataformas. O objetivo é coletar informações detalhadas e implementar um dashboard que facilite a visualização e análise desses dados.
 
 ## Proposta do Projeto
 
-Fomos contratados por uma grande empresa para fazer uma pesquisa de mercado na categoria de tênis esportivos dentro de diversos e-commerces: Mercado Livre, Amazon, Magalu, Shopee, Centauro e Netshoes. O objetivo dessa empresa é avaliar:
+Fomos contratados por uma grande empresa para fazer uma pesquisa de mercado na categoria de tênis esportivos dentro de diversos e-commerces: Mercado Livre, Magalu, Centauro e Netshoes. O objetivo dessa empresa é avaliar:
 - 👟 Quais marcas são mais encontradas até a 10ª página
 - 💰 Qual o preço médio por marca
 - ⭐ Qual a satisfação por marca
 
 # Fontes de Dados
 - Mercado Livre
-- Amazon
 - Magalu
-- Shopee
 - Centauro
 - Netshoes
 
 ## Etapas do Projeto
 
 ### Etapa 1: Extração dos Dados
-Utilização de **Web Scraping** com a biblioteca **Scrapy** para obter os dados necessários do Mercado Livre, Amazon, Magalu, Shopee, Centauro.
+Utilização de **Web Scraping** com a biblioteca **Scrapy** para obter os dados necessários do Mercado Livre, Magalu, Centauro e Netshoes.
 
 ### Etapa 2: Transformação dos Dados
 Processamento e limpeza dos dados utilizando a biblioteca **Pandas** para garantir que estejam prontos para análise.
@@ -55,9 +53,7 @@ Desenvolvimento de um **dashboard interativo** usando **Streamlit** para consumi
 data/
 │── centauro.jsonl
 │── mercado_livre.jsonl
-│── amazon.jsonl
 │── magalu.jsonl
-│── shopee.jsonl
 │── netshoes.jsonl
 │── quotes.db
 pics/
@@ -67,9 +63,7 @@ src/
 │   ├── spiders/
 │   │   └── centauro.py
 │   │   └── mercadolivre.py
-│   │   └── amazon.py
 │   │   └── magalu.py
-│   │   └── shopee.py
 │   │   └── netshoes.py
 │   ├── pipelines.py
 │   ├── items.py
@@ -77,9 +71,7 @@ src/
 ├── transformacao/
 │   ├── centauro.py
 │   ├── mercadolivre.py
-│   ├── amazon.py
 │   ├── magalu.py
-│   ├── shopee.py
 │   ├── netshoes.py
 ├── dashboard/
 │   ├── app.py
@@ -109,9 +101,7 @@ Em seguida, para executar cada etapa, siga as instruções abaixo:
 cd src/coleta/
 scrapy crawl mercadolivre -o ../../data/mercado_livre.jsonl
 scrapy crawl centauro -o ../../data/centauro.jsonl
-scrapy crawl amazon -o ../../data/amazon.jsonl
 scrapy crawl magalu -o ../../data/magalu.jsonl
-scrapy crawl shopee -o ../../data/shopee.jsonl
 scrapy crawl netshoes -o ../../data/netshoes.jsonl
 ```
 
@@ -120,9 +110,7 @@ scrapy crawl netshoes -o ../../data/netshoes.jsonl
 ```sh
 python src/transformacao/mercado_livre.py
 python src/transformacao/centauro.py
-python src/transformacao/amazon.py
 python src/transformacao/magalu.py
-python src/transformacao/shopee.py
 python src/transformacao/netshoes.py
 ```
 

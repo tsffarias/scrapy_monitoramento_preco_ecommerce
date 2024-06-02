@@ -28,8 +28,8 @@ class Dashboard:
 
         #Options Menu
         with st.sidebar:
-            selected = option_menu('WebScraping', ["Home", 'Mercado Livre', 'Amazon', 'Magalu', 'Shopee', 'Centauro', 'Netshoes', 'Sobre'], 
-                icons=['house', 'search', 'search', 'search', 'search', 'search', 'search', 'info-circle'], menu_icon='intersect', default_index=0,
+            selected = option_menu('WebScraping', ["Home", 'Mercado Livre', 'Magalu', 'Centauro', 'Netshoes', 'Sobre'], 
+                icons=['house', 'search', 'search', 'search', 'search', 'info-circle'], menu_icon='intersect', default_index=0,
                 styles={
                         "container": {"background-color": "#fafafa"},
                         "nav-link": {"--hover-color": "#eee"},
@@ -122,21 +122,9 @@ class Dashboard:
         
         with st.container():
             col1,col2,col3=st.columns(3)
-            col1.write(':blue[Amazon]')
-            col2.write('Setor de Tênis corrida masculino')
-            col3.write('https://amzn.to/3V9Owvg')
-        
-        with st.container():
-            col1,col2,col3=st.columns(3)
             col1.write(':blue[Magalu]')
             col2.write('Setor de Tênis corrida masculino')
             col3.write('https://www.magazineluiza.com.br/busca/tenis%2Bmasculino/?from=clickSuggestion&filters=category---ES%2Bsubcategory---ELNN')
-
-        with st.container():
-            col1,col2,col3=st.columns(3)
-            col1.write(':blue[Shopee]')
-            col2.write('Setor de Tênis corrida masculino')
-            col3.write('https://shopee.com.br/search?facet=11062129&keyword=tenis%20masculino%20esportivo&noCorrection=true&page=0')
 
         with st.container():
             col1,col2,col3=st.columns(3)
@@ -161,6 +149,7 @@ class Dashboard:
             col1.write('**Educação:**  Sistemas de Informações - UFMS')
             col1.write('**Experiencia:**  Analista de Dados e futuro Analytics Engineer')
             col1.write('**Contato:** [Linkedin](https://www.linkedin.com/in/thiagosilvafarias/)')
+            col1.write('**Github:** [Projeto](https://github.com/tsffarias/scrapy_monitoramento_preco_ecommerce/tree/main)')
             col1.write('**Obrigado pela visita!**')
 
             col2.markdown(
@@ -375,19 +364,6 @@ class Dashboard:
         col1.plotly_chart(fig2)
         col2.write(satisfaction_by_brand_table)
 
-    def amazon(self, df):
-        # Título da aplicação
-        st.title('Pesquisa de Mercado - Tênis Esportivos na Amazon')
-
-        # Imagem Logo e-commerce
-        image_html = """
-        <div style="text-align: center;">
-            <img src="https://cdn4.iconfinder.com/data/icons/flat-brand-logo-2/512/amazon-512.png" width="350" alt="Amazon">
-        </div>
-        """ 
-        # Renderiza o HTML na barra lateral
-        st.sidebar.markdown(image_html, unsafe_allow_html=True)
-
     def magalu(self, df):
         # Título da aplicação
         st.title('Pesquisa de Mercado - Tênis Esportivos na Magalu')  
@@ -401,20 +377,7 @@ class Dashboard:
         # Renderiza o HTML na barra lateral
         st.sidebar.markdown(image_html, unsafe_allow_html=True) 
 
-        self.dashboard_elements(df)
-
-    def shopee(self, df):
-        # Título da aplicação
-        st.title('Pesquisa de Mercado - Tênis Esportivos na Shopee') 
-
-        # Imagem Logo e-commerce
-        image_html = """
-        <div style="text-align: center;">
-            <img src="https://i.pinimg.com/originals/05/7b/27/057b274c134bcf92ac151758478949b3.png" width="350" alt="Shopee">
-        </div>
-        """ 
-        # Renderiza o HTML na barra lateral
-        st.sidebar.markdown(image_html, unsafe_allow_html=True)   
+        self.dashboard_elements(df)  
 
     def centauro(self, df):
         # Título da aplicação
