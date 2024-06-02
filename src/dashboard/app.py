@@ -28,8 +28,8 @@ class Dashboard:
 
         #Options Menu
         with st.sidebar:
-            selected = option_menu('WebScraping', ["Home", 'Mercado Livre', 'Amazon', 'Magalu', 'Shopee', 'Centauro', 'Sobre'], 
-                icons=['house', 'search', 'search', 'search', 'search', 'search', 'info-circle'], menu_icon='intersect', default_index=0,
+            selected = option_menu('WebScraping', ["Home", 'Mercado Livre', 'Amazon', 'Magalu', 'Shopee', 'Centauro', 'Netshoes', 'Sobre'], 
+                icons=['house', 'search', 'search', 'search', 'search', 'search', 'search', 'info-circle'], menu_icon='intersect', default_index=0,
                 styles={
                         "container": {"background-color": "#fafafa"},
                         "nav-link": {"--hover-color": "#eee"},
@@ -51,6 +51,9 @@ class Dashboard:
         elif selected=="Centauro":
             df = self.connect_db('centauro_items')
             self.centauro(df)
+        elif selected=="Netshoes":
+            df = self.connect_db('netshoes_items')
+            self.netshoes(df)
         else:
             self.about()
                
@@ -140,6 +143,11 @@ class Dashboard:
             col2.write('Setor de Tênis para academia masculino')
             col3.write('https://www.centauro.com.br/nav/produto/tenis/esportes/academiafitness/genero/masculino')
         
+        with st.container():
+            col1,col2,col3=st.columns(3)
+            col1.write(':blue[Netshoes]')
+            col2.write('Setor de Tênis corrida masculino')
+            col3.write('https://www.netshoes.com.br/running/tenis-performance?genero=masculino')
         
         
         st.divider()
@@ -160,6 +168,104 @@ class Dashboard:
                 """
             )        
 
+    def dashboard_elements(self, df):
+        # Melhorar o layout com colunas para KPIs
+        st.subheader("KPIs Principais")
+        col1, col2, col3 = st.columns(3)
+
+        # KPI 1: Número total de itens
+        total_items = df.shape[0]
+        col1.metric(label="Número Total de Itens", value=total_items)
+
+        # KPI 2: Número de marcas únicas
+        unique_brands = df['brand'].nunique()
+        col2.metric(label="Número de Marcas Únicas", value=unique_brands)
+
+        # KPI 3: Preço médio novo (em reais)
+        average_new_price = df['new_price_reais'].mean()
+        col3.metric(label="Preço Médio Novo (R$)", value=f"{average_new_price:.2f}")
+
+        st.divider()
+
+        # Quais marcas são mais encontradas até a 10ª página
+        st.subheader('👟 Marcas mais encontradas até a 10ª página')
+        # Texto explicativo
+        st.markdown(
+            """
+            **Descrição:** Este KPI avalia a visibilidade das marcas de tênis esportivos em e-commerces, contabilizando a frequência com que cada marca aparece até a 10ª página de resultados de pesquisa. 
+            Essa métrica ajuda a identificar quais marcas têm maior presença e são mais facilmente encontradas pelos consumidores nas plataformas analisadas.
+            """, 
+            unsafe_allow_html=True
+        )
+
+        col1, col2 = st.columns([4, 2])
+        top_10_pages_brands = (df['brand']
+                                    .value_counts()
+                                    .nlargest(10)
+                                    .sort_values(ascending=False)
+                                    .to_frame()
+                                    .reset_index())
+        top_10_pages_brands.columns = ['marca', 'contagem']
+        fig = px.bar(top_10_pages_brands, x='marca', y='contagem', text_auto='.3s')
+        top_10_pages_brands_table = df['brand'].value_counts().sort_values(ascending=False)
+        
+        col1.plotly_chart(fig)
+        col2.write(top_10_pages_brands_table)
+
+        st.divider()
+
+        # Qual o preço médio por marca
+        st.subheader('💰 Preço médio por marca')
+        st.markdown(
+            """
+            **Descrição:** Este KPI calcula o preço médio dos tênis esportivos de cada marca nas plataformas de e-commerce selecionadas. 
+            Ele permite comparar o posicionamento de preço entre diferentes marcas e identificar quais marcas estão no segmento premium, médio ou de entrada, fornecendo insights valiosos sobre a estratégia de preços de cada marca.
+            """, 
+            unsafe_allow_html=True
+        )
+        col1, col2 = st.columns([4, 2])
+        average_price_by_brand = (df.groupby('brand')['new_price_reais']
+                                        .mean()
+                                        .nlargest(10)
+                                        .sort_values(ascending=False)
+                                        .to_frame()
+                                        .reset_index())
+        average_price_by_brand.columns = ['marca', 'preco_medio_novo']
+        fig1 = px.bar(average_price_by_brand, x='marca', y='preco_medio_novo', text_auto='.3s')
+        average_price_by_brand_table = df.groupby('brand')['new_price_reais'].mean().sort_values(ascending=False)
+
+        col1.plotly_chart(fig1)
+        col2.write(average_price_by_brand_table)
+
+        st.divider()
+
+        # Qual a satisfação por marca
+        st.subheader('⭐ Satisfação por marca')
+        st.markdown(
+            """
+            **Descrição:** Este KPI mede a satisfação dos clientes com cada marca de tênis esportivos, utilizando as avaliações e classificações dos consumidores nas plataformas de e-commerce. 
+            A média das avaliações por marca revela a percepção de qualidade e satisfação do cliente, destacando as marcas que têm melhor aceitação e aquelas que precisam de melhorias.
+            """, 
+            unsafe_allow_html=True
+        )
+
+        col1, col2 = st.columns([4, 2])
+        df_non_zero_reviews = df[df['reviews_rating_number'] > 0]
+        satisfaction_by_brand = (df_non_zero_reviews
+                                        .groupby('brand')
+                                        ['reviews_rating_number']
+                                        .mean()
+                                        .nlargest(10)
+                                        .sort_values(ascending=False)
+                                        .to_frame()
+                                        .reset_index())
+        satisfaction_by_brand.columns = ['marca', 'media_avaliacoes']
+        fig2 = px.bar(satisfaction_by_brand, x='marca', y='media_avaliacoes', text_auto='.3s')
+        satisfaction_by_brand_table = df_non_zero_reviews.groupby('brand')['reviews_rating_number'].mean().sort_values(ascending=False)
+
+        col1.plotly_chart(fig2)
+        col2.write(satisfaction_by_brand_table)
+    
     def mercado_livre(self, df):
         # Título da aplicação
         st.title('Pesquisa de Mercado - Tênis Esportivos no Mercado Livre')
@@ -194,6 +300,13 @@ class Dashboard:
 
         # Quais marcas são mais encontradas até a 10ª página
         st.subheader('👟 Marcas mais encontradas até a 10ª página')
+        st.markdown(
+            """
+            **Descrição:** Este KPI avalia a visibilidade das marcas de tênis esportivos em e-commerces, contabilizando a frequência com que cada marca aparece até a 10ª página de resultados de pesquisa. 
+            Essa métrica ajuda a identificar quais marcas têm maior presença e são mais facilmente encontradas pelos consumidores nas plataformas analisadas.
+            """, 
+            unsafe_allow_html=True
+        )
         col1, col2 = st.columns([4, 2])
         top_10_pages_brands = (df['brand']
                                     .value_counts()
@@ -212,6 +325,13 @@ class Dashboard:
 
         # Qual o preço médio por marca
         st.subheader('💰 Preço médio por marca')
+        st.markdown(
+            """
+            **Descrição:** Este KPI calcula o preço médio dos tênis esportivos de cada marca nas plataformas de e-commerce selecionadas. 
+            Ele permite comparar o posicionamento de preço entre diferentes marcas e identificar quais marcas estão no segmento premium, médio ou de entrada, fornecendo insights valiosos sobre a estratégia de preços de cada marca.
+            """, 
+            unsafe_allow_html=True
+        )
         col1, col2 = st.columns([4, 2])
         average_price_by_brand = (df.groupby('brand')['new_price']
                                         .mean()
@@ -230,6 +350,13 @@ class Dashboard:
 
         # Qual a satisfação por marca
         st.subheader('⭐ Satisfação por marca')
+        st.markdown(
+            """
+            **Descrição:** Este KPI mede a satisfação dos clientes com cada marca de tênis esportivos, utilizando as avaliações e classificações dos consumidores nas plataformas de e-commerce. 
+            A média das avaliações por marca revela a percepção de qualidade e satisfação do cliente, destacando as marcas que têm melhor aceitação e aquelas que precisam de melhorias.
+            """, 
+            unsafe_allow_html=True
+        )
         col1, col2 = st.columns([4, 2])
         df_non_zero_reviews = df[df['reviews_rating_number'] > 0]
         satisfaction_by_brand = (df_non_zero_reviews
@@ -299,78 +426,22 @@ class Dashboard:
         # Renderiza o HTML na barra lateral
         st.sidebar.markdown(image_html, unsafe_allow_html=True)
 
-        # Melhorar o layout com colunas para KPIs
-        st.subheader("KPIs Principais")
-        col1, col2, col3 = st.columns(3)
+        self.dashboard_elements(df)
 
-        # KPI 1: Número total de itens
-        total_items = df.shape[0]
-        col1.metric(label="Número Total de Itens", value=total_items)
+    def netshoes(self, df):
+        # Título da aplicação
+        st.title('Pesquisa de Mercado - Tênis Esportivos na Netshoes')
 
-        # KPI 2: Número de marcas únicas
-        unique_brands = df['brand'].nunique()
-        col2.metric(label="Número de Marcas Únicas", value=unique_brands)
+        # Imagem Logo e-commerce
+        image_html = """
+        <div style="text-align: center;">
+            <img src="https://logodownload.org/wp-content/uploads/2020/02/netshoes-logo.png" width="350" alt="Netshoes">
+        </div>
+        """ 
+        # Renderiza o HTML na barra lateral
+        st.sidebar.markdown(image_html, unsafe_allow_html=True)
 
-        # KPI 3: Preço médio novo (em reais)
-        average_new_price = df['new_price_reais'].mean()
-        col3.metric(label="Preço Médio Novo (R$)", value=f"{average_new_price:.2f}")
-
-        st.divider()
-
-        # Quais marcas são mais encontradas até a 10ª página
-        st.subheader('👟 Marcas mais encontradas até a 10ª página')
-        col1, col2 = st.columns([4, 2])
-        top_10_pages_brands = (df['brand']
-                                    .value_counts()
-                                    .nlargest(10)
-                                    .sort_values(ascending=False)
-                                    .to_frame()
-                                    .reset_index())
-        top_10_pages_brands.columns = ['marca', 'contagem']
-        fig = px.bar(top_10_pages_brands, x='marca', y='contagem', text_auto='.3s')
-        top_10_pages_brands_table = df['brand'].value_counts().sort_values(ascending=False)
-        
-        col1.plotly_chart(fig)
-        col2.write(top_10_pages_brands_table)
-
-        st.divider()
-
-        # Qual o preço médio por marca
-        st.subheader('💰 Preço médio por marca')
-        col1, col2 = st.columns([4, 2])
-        average_price_by_brand = (df.groupby('brand')['new_price_reais']
-                                        .mean()
-                                        .nlargest(10)
-                                        .sort_values(ascending=False)
-                                        .to_frame()
-                                        .reset_index())
-        average_price_by_brand.columns = ['marca', 'preco_medio_novo']
-        fig1 = px.bar(average_price_by_brand, x='marca', y='preco_medio_novo', text_auto='.3s')
-        average_price_by_brand_table = df.groupby('brand')['new_price_reais'].mean().sort_values(ascending=False)
-
-        col1.plotly_chart(fig1)
-        col2.write(average_price_by_brand_table)
-
-        st.divider()
-
-        # Qual a satisfação por marca
-        st.subheader('⭐ Satisfação por marca')
-        col1, col2 = st.columns([4, 2])
-        df_non_zero_reviews = df[df['reviews_rating_number'] > 0]
-        satisfaction_by_brand = (df_non_zero_reviews
-                                        .groupby('brand')
-                                        ['reviews_rating_number']
-                                        .mean()
-                                        .nlargest(10)
-                                        .sort_values(ascending=False)
-                                        .to_frame()
-                                        .reset_index())
-        satisfaction_by_brand.columns = ['marca', 'media_avaliacoes']
-        fig2 = px.bar(satisfaction_by_brand, x='marca', y='media_avaliacoes', text_auto='.3s')
-        satisfaction_by_brand_table = df_non_zero_reviews.groupby('brand')['reviews_rating_number'].mean().sort_values(ascending=False)
-
-        col1.plotly_chart(fig2)
-        col2.write(satisfaction_by_brand_table)
+        self.dashboard_elements(df)
 
            
 
