@@ -9,6 +9,36 @@ class MagaluSpider(scrapy.Spider):
     max_pages = 10
 
     def parse(self, response):
+        # Pegue os links para as páginas dos produtos
+        product_links = response.css('a.sc-eBMEME::attr(href)').getall()
+        for link in product_links:
+            yield response.follow(link, callback=self.parse_product)
+
+        # Verifica se deve continuar para a próxima página
+        '''
+        if self.page_count < self.max_pages:
+            self.page_count += 1
+            next_page = self.start_urls[0] + f'&page={self.page_count}' # padrão link + &page=numero
+            yield response.follow(next_page, callback=self.parse)
+        '''
+
+    def parse_product(self, response):
+
+        yield {
+            'brand': response.css('a[data-testid=heading-product-brand]::text').get(),
+            'name': response.css('h1[data-testid=heading-product-title]::text').get(),
+            'new_price_reais': response.css('p[data-testid=price-value]::text').get(),
+            'old_price_reais': response.css('p[data-testid=price-original]::text').get(),
+            'reviews_rating_number': response.css('span[data-testid=review-totalizers-rating]::text').get(),
+            'reviews_amount': response.css('p[data-testid=review-totalizers-count]::text').get(),
+            'page_count': self.page_count,
+            '_source_name': self.name,
+            '_source_link': self.start_urls[0],
+            '_data_coleta': datetime.now()
+        }
+
+    '''
+    def parse(self, response):
         
         products = response.css("div.sc-fqkvVR.sc-fBWQRz")
 
@@ -16,7 +46,7 @@ class MagaluSpider(scrapy.Spider):
             prices = product.css('::text').getall()
             
             print(prices)
-            '''
+            
             yield {
                 'brand': product.css('::text').get(),
                 'name': product.css('::text').get(),
@@ -29,5 +59,6 @@ class MagaluSpider(scrapy.Spider):
                 '_source_link': self.start_urls[0],
                 '_data_coleta': datetime.now()
             }
-            '''
+            
 
+    '''
