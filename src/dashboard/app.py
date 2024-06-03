@@ -195,10 +195,38 @@ class Dashboard:
                                     .sort_values(ascending=False)
                                     .to_frame()
                                     .reset_index())
-        top_10_pages_brands.columns = ['marca', 'contagem']
-        fig = px.bar(top_10_pages_brands, x='marca', y='contagem', text_auto='.3s')
-        top_10_pages_brands_table = df['brand'].value_counts().sort_values(ascending=False)
-        
+        top_10_pages_brands.columns = ['marca', 'quantidade_produtos']
+
+        top_10_pages_brands_table = df['brand'].value_counts().sort_values(ascending=False).to_frame().reset_index()
+        top_10_pages_brands_table.columns = ['marca', 'quantidade_produtos']
+        top_10_pages_brands_table['percentual'] = (top_10_pages_brands_table['quantidade_produtos'] / df.shape[0] * 100).round(2)
+
+        # Calculando a média
+        media_quantidade = top_10_pages_brands['quantidade_produtos'].mean()
+
+        # Criando o gráfico de barras com linha de média
+        fig = px.bar(top_10_pages_brands, x='marca', y='quantidade_produtos', text_auto='.3s')
+
+        # Adicionando a linha de média
+        fig.add_shape(
+            type="line",
+            x0=-0.5,
+            x1=len(top_10_pages_brands['marca'])-0.5,
+            y0=media_quantidade,
+            y1=media_quantidade,
+            line=dict(color="Red", width=2, dash="dash"),
+        )
+
+        # Adicionando a anotação de média
+        fig.add_annotation(
+            x=len(top_10_pages_brands['marca']) - 1,
+            y=media_quantidade,
+            text=f"Média: {media_quantidade:.2f}",
+            showarrow=False,
+            yshift=10,
+            font=dict(color="Red")
+        )
+
         col1.plotly_chart(fig)
         col2.write(top_10_pages_brands_table)
 
@@ -220,9 +248,36 @@ class Dashboard:
                                         .sort_values(ascending=False)
                                         .to_frame()
                                         .reset_index())
-        average_price_by_brand.columns = ['marca', 'preco_medio_novo']
-        fig1 = px.bar(average_price_by_brand, x='marca', y='preco_medio_novo', text_auto='.3s')
-        average_price_by_brand_table = df.groupby('brand')['new_price_reais'].mean().sort_values(ascending=False)
+        average_price_by_brand.columns = ['marca', 'preco_medio']
+
+        average_price_by_brand_table = df.groupby('brand').agg(preco_medio=('new_price_reais', 'mean'), quantidade_produtos=('new_price_reais', 'size')).sort_values(by='preco_medio', ascending=False).reset_index()
+        average_price_by_brand_table.columns = ['marca', 'preco_medio', 'quantidade_produtos']
+
+        # Calculando a média
+        media_preco_medio = average_price_by_brand['preco_medio'].mean()
+
+        # Criando o gráfico de barras com linha de média
+        fig1 = px.bar(average_price_by_brand, x='marca', y='preco_medio', text_auto='.3s')
+
+        # Adicionando a linha de média
+        fig1.add_shape(
+            type="line",
+            x0=-0.5,
+            x1=len(average_price_by_brand['marca'])-0.5,
+            y0=media_preco_medio,
+            y1=media_preco_medio,
+            line=dict(color="Red", width=2, dash="dash"),
+        )
+
+        # Adicionando a anotação de média
+        fig1.add_annotation(
+            x=len(average_price_by_brand['marca']) - 1,
+            y=media_preco_medio,
+            text=f"Média: {media_preco_medio:.2f}",
+            showarrow=False,
+            yshift=10,
+            font=dict(color="Red")
+        )
 
         col1.plotly_chart(fig1)
         col2.write(average_price_by_brand_table)
@@ -243,15 +298,40 @@ class Dashboard:
         df_non_zero_reviews = df[df['reviews_rating_number'] > 0]
         satisfaction_by_brand = (df_non_zero_reviews
                                         .groupby('brand')
-                                        ['reviews_rating_number']
-                                        .mean()
-                                        .nlargest(10)
-                                        .sort_values(ascending=False)
-                                        .to_frame()
+                                        .agg(media_avaliacoes=('reviews_rating_number', 'mean'), quantidade_avaliacoes=('reviews_rating_number', 'size'))
+                                        .nlargest(10, 'media_avaliacoes')
+                                        .sort_values(by='media_avaliacoes', ascending=False)
                                         .reset_index())
-        satisfaction_by_brand.columns = ['marca', 'media_avaliacoes']
+
+        satisfaction_by_brand.columns = ['marca', 'media_avaliacoes', 'quantidade_avaliacoes']
+        # Calculando a média
+        media_avaliacoes = satisfaction_by_brand['media_avaliacoes'].mean()
+
+        # Criando o gráfico de barras com linha de média
         fig2 = px.bar(satisfaction_by_brand, x='marca', y='media_avaliacoes', text_auto='.3s')
-        satisfaction_by_brand_table = df_non_zero_reviews.groupby('brand')['reviews_rating_number'].mean().sort_values(ascending=False)
+
+        # Adicionando a linha de média
+        fig2.add_shape(
+            type="line",
+            x0=-0.5,
+            x1=len(satisfaction_by_brand['marca'])-0.5,
+            y0=media_avaliacoes,
+            y1=media_avaliacoes,
+            line=dict(color="Red", width=2, dash="dash"),
+        )
+
+        # Adicionando a anotação de média
+        fig2.add_annotation(
+            x=len(satisfaction_by_brand['marca']) - 1,
+            y=media_avaliacoes,
+            text=f"Média: {media_avaliacoes:.2f}",
+            showarrow=False,
+            yshift=10,
+            font=dict(color="Red")
+        )
+
+        satisfaction_by_brand_table = df_non_zero_reviews.groupby('brand').agg(media_avaliacoes=('reviews_rating_number', 'mean'), quantidade_avaliacoes=('reviews_rating_number', 'size')).sort_values(by='media_avaliacoes', ascending=False).reset_index()
+        satisfaction_by_brand_table.columns = ['marca', 'media_avaliacoes', 'quantidade_avaliacoes']
 
         col1.plotly_chart(fig2)
         col2.write(satisfaction_by_brand_table)
@@ -310,7 +390,31 @@ class Dashboard:
         top_10_pages_brands_table.columns = ['marca', 'quantidade_produtos']
         top_10_pages_brands_table['percentual'] = (top_10_pages_brands_table['quantidade_produtos'] / df.shape[0] * 100).round(2)
 
+        # Calculando a média
+        media_quantidade_produtos = top_10_pages_brands['quantidade_produtos'].mean()
+
+        # Criando o gráfico de barras com linha de média
         fig = px.bar(top_10_pages_brands, x='marca', y='quantidade_produtos', text_auto='.3s')
+
+        # Adicionando a linha de média
+        fig.add_shape(
+            type="line",
+            x0=-0.5,
+            x1=len(top_10_pages_brands['marca'])-0.5,
+            y0=media_quantidade_produtos,
+            y1=media_quantidade_produtos,
+            line=dict(color="Red", width=2, dash="dash"),
+        )
+
+        # Adicionando a anotação de média
+        fig.add_annotation(
+            x=len(top_10_pages_brands['marca']) - 1,
+            y=media_quantidade_produtos,
+            text=f"Média: {media_quantidade_produtos:.2f}",
+            showarrow=False,
+            yshift=10,
+            font=dict(color="Red")
+        )
 
         col1.plotly_chart(fig)
         col2.write(top_10_pages_brands_table)
@@ -335,9 +439,32 @@ class Dashboard:
                                         .to_frame()
                                         .reset_index())
         average_price_by_brand.columns = ['marca', 'preco_medio']
+        # Calculando a média
+        media_preco_medio = average_price_by_brand['preco_medio'].mean()
+
+        # Criando o gráfico de barras com linha de média
         fig1 = px.bar(average_price_by_brand, x='marca', y='preco_medio', text_auto='.3s')
 
-        # Criando a tabela separada para o write()
+        # Adicionando a linha de média
+        fig1.add_shape(
+            type="line",
+            x0=-0.5,
+            x1=len(average_price_by_brand['marca'])-0.5,
+            y0=media_preco_medio,
+            y1=media_preco_medio,
+            line=dict(color="Red", width=2, dash="dash"),
+        )
+
+        # Adicionando a anotação de média
+        fig1.add_annotation(
+            x=len(average_price_by_brand['marca']) - 1,
+            y=media_preco_medio,
+            text=f"Média: {media_preco_medio:.2f}",
+            showarrow=False,
+            yshift=10,
+            font=dict(color="Red")
+        )
+
         average_price_by_brand_table = df.groupby('brand').agg(preco_medio=('new_price', 'mean'), quantidade_produtos=('new_price', 'size')).sort_values(by='preco_medio', ascending=False).reset_index()
         average_price_by_brand_table.columns = ['marca', 'preco_medio', 'quantidade_produtos']
 
@@ -363,11 +490,35 @@ class Dashboard:
                                         .nlargest(10, 'media_avaliacoes')
                                         .sort_values(by='media_avaliacoes', ascending=False)
                                         .reset_index())
-        fig2 = px.bar(satisfaction_by_brand, x='brand', y='media_avaliacoes', text_auto='.3s')
+        
+        satisfaction_by_brand.columns = ['marca', 'media_avaliacoes', 'quantidade_avaliacoes']
+        # Calculando a média
+        media_avaliacoes = satisfaction_by_brand['media_avaliacoes'].mean()
 
-        # Criando a tabela separada para o write()
+        # Criando o gráfico de barras com linha de média
+        fig2 = px.bar(satisfaction_by_brand, x='marca', y='media_avaliacoes', text_auto='.3s')
+
+        # Adicionando a linha de média
+        fig2.add_shape(
+            type="line",
+            x0=-0.5,
+            x1=len(satisfaction_by_brand['marca'])-0.5,
+            y0=media_avaliacoes,
+            y1=media_avaliacoes,
+            line=dict(color="Red", width=2, dash="dash"),
+        )
+
+        # Adicionando a anotação de média
+        fig2.add_annotation(
+            x=len(satisfaction_by_brand['marca']) - 1,
+            y=media_avaliacoes,
+            text=f"Média: {media_avaliacoes:.2f}",
+            showarrow=False,
+            yshift=10,
+            font=dict(color="Red")
+        )
+
         satisfaction_by_brand_table = df_non_zero_reviews.groupby('brand').agg(media_avaliacoes=('reviews_rating_number', 'mean'), quantidade_avaliacoes=('reviews_rating_number', 'size')).sort_values(by='media_avaliacoes', ascending=False).reset_index()
-        total_reviews_sum = df_non_zero_reviews['reviews_rating_number'].sum()
         satisfaction_by_brand_table.columns = ['marca', 'media_avaliacoes', 'quantidade_avaliacoes']
 
         col1.plotly_chart(fig2)
