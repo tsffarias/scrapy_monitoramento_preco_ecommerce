@@ -119,3 +119,7 @@ python src/transformacao/netshoes.py
 ```sh
 streamlit run src/dashboard/app.py
 ```
+
+## Análise dos Dados do dia 02/06/2024
+
+Análise dos dados aqui após extração dos dados
