@@ -44,7 +44,9 @@ Desenvolvimento de um **dashboard interativo** usando **Streamlit** para consumi
 ![arquitetura](/pics/arquitetura.png)
 
 ### Dashboard
-- Imagem Dashboard aqui (...em desenvolvimento)
+- Link dashboard: (Adicionar link Aqui)
+
+![dashboard](/pics/mercado_livre.png)
 
 ## Estrutura de Diretórios
 
