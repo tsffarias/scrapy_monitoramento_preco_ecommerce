@@ -25,11 +25,11 @@ class NetshoesSpider(scrapy.Spider):
 
     def parse_product(self, response):
         
-        product_attributes = response.css('ul.features--attributes li')######
+        product_attributes = response.css('ul.features--attributes li')
         
         if product_attributes:
             brand_element = product_attributes[-1]
-            brand = brand_element.css('a::text').get() ####
+            brand = brand_element.css('a::text').get()
         else:
             brand_name_list = response.css('h1.product-name::text').get().split()
             if brand_name_list[1] == 'Masculino':
