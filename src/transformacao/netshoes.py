@@ -47,6 +47,9 @@ else:
         # Tratar os valores nulos para colunas numéricas e de texto
         df['new_price_reais'] = df['new_price_reais'].fillna(0).astype(float)
         df['reviews_rating_number'] = df['reviews_rating_number'].fillna(0).astype(float)
+
+        # Substitindo nome marcas 
+        df.loc[df['brand'] == 'New', 'brand'] = 'New Balance'
         
         # Tratando a avaliação
         df['reviews_amount'] = df['reviews_amount'].apply(extrair_numero_avaliacoes)
