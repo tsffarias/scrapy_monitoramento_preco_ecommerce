@@ -15,15 +15,17 @@ class NetshoesSpider(scrapy.Spider):
             yield response.follow(link, callback=self.parse_product)
 
         # Verifica se deve continuar para a próxima página
+        '''
         if self.page_count < self.max_pages:
             next_page = response.css('div.pagination a::attr(href)').get()
             if next_page:
                 self.page_count += 1
                 yield response.follow(next_page, callback=self.parse)
+        '''
 
     def parse_product(self, response):
         
-        product_attributes = response.css('ul.attributes li')
+        product_attributes = response.css('ul.features--attributes li')
         
         if product_attributes:
             brand_element = product_attributes[-1]
@@ -33,10 +35,10 @@ class NetshoesSpider(scrapy.Spider):
 
         yield {
             'brand': brand,
-            'name': response.css('div.short-showcase-description section.short-description h1::text').get(),
-            'new_price_reais': response.css('div.default-price span strong::text').get(),
-            'reviews_rating_number': response.css('div.rating-box a span::text').get(),
-            'reviews_amount': response.css('div.rating-box a div span.rating-box__numberOfReviews::text').get(),
+            'name': response.css('h1.product-name::text').get(),
+            'new_price_reais': response.css('div.price-box__saleInCents span.saleInCents-value::text').get().strip(),
+            'reviews_rating_number': response.css('div[aria-label="Avaliações"] div[aria-label="Média"]::text').get().strip(),
+            'reviews_amount': response.css('p[aria-label="Número de reviews"]::text').get().strip(),
             'page_count': self.page_count,
             '_source_name': self.name,
             '_source_link': self.start_urls[0],
