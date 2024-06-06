@@ -28,8 +28,8 @@ class Dashboard:
 
         #Options Menu
         with st.sidebar:
-            selected = option_menu('WebScraping', ["Home", 'Mercado Livre', 'Magalu', 'Centauro', 'Netshoes', 'Sobre'], 
-                icons=['house', 'search', 'search', 'search', 'search', 'info-circle'], menu_icon='intersect', default_index=0,
+            selected = option_menu('WebScraping', ["Home", 'Mercado Livre', 'Centauro', 'Sobre'], 
+                icons=['house', 'search', 'search', 'info-circle'], menu_icon='intersect', default_index=0,
                 styles={
                         "container": {"background-color": "#fafafa"},
                         "nav-link": {"--hover-color": "#eee"},
@@ -42,21 +42,12 @@ class Dashboard:
             self.home()
         elif selected=="Mercado Livre":
             self.mercado_livre(df)
-        elif selected=="Amazon":
-            self.amazon(df)
-        elif selected=="Magalu":
-            df = self.connect_db('magalu_items')
-            self.magalu(df)
-        elif selected=="Shopee":
-            self.shopee(df)
         elif selected=="Centauro":
             df = self.connect_db('centauro_items')
             self.centauro(df)
-        elif selected=="Netshoes":
-            df = self.connect_db('netshoes_items')
-            self.netshoes(df)
         else:
-            self.about()
+            self.about() 
+        
                
     
     def connect_db(self, table='mercadolivre_items'):
@@ -120,11 +111,13 @@ class Dashboard:
             col2.write('Setor de Tênis corrida masculino')
             col3.write('https://lista.mercadolivre.com.br/tenis-corrida-masculino')
         
+        '''
         with st.container():
             col1,col2,col3=st.columns(3)
             col1.write(':blue[Magalu]')
             col2.write('Setor de Tênis corrida masculino')
             col3.write('https://www.magazineluiza.com.br/busca/tenis%2Bmasculino/?from=clickSuggestion&filters=category---ES%2Bsubcategory---ELNN')
+        '''
 
         with st.container():
             col1,col2,col3=st.columns(3)
@@ -132,12 +125,13 @@ class Dashboard:
             col2.write('Setor de Tênis para academia masculino')
             col3.write('https://www.centauro.com.br/nav/produto/tenis/esportes/academiafitness/genero/masculino')
         
+        '''
         with st.container():
             col1,col2,col3=st.columns(3)
             col1.write(':blue[Netshoes]')
             col2.write('Setor de Tênis corrida masculino')
             col3.write('https://www.netshoes.com.br/running/tenis-performance?genero=masculino')
-        
+        '''
         
         st.divider()
         
@@ -524,7 +518,7 @@ class Dashboard:
         col1.plotly_chart(fig2)
         col2.write(satisfaction_by_brand_table)
 
-
+    '''
     def magalu(self, df):
         # Título da aplicação
         st.title('Pesquisa de Mercado - Tênis Esportivos na Magalu')  
@@ -538,7 +532,8 @@ class Dashboard:
         # Renderiza o HTML na barra lateral
         st.sidebar.markdown(image_html, unsafe_allow_html=True) 
 
-        self.dashboard_elements(df)  
+        self.dashboard_elements(df) 
+    ''' 
 
     def centauro(self, df):
         # Título da aplicação
@@ -555,6 +550,7 @@ class Dashboard:
 
         self.dashboard_elements(df)
 
+    '''
     def netshoes(self, df):
         # Título da aplicação
         st.title('Pesquisa de Mercado - Tênis Esportivos na Netshoes')
@@ -569,7 +565,7 @@ class Dashboard:
         st.sidebar.markdown(image_html, unsafe_allow_html=True)
 
         self.dashboard_elements(df)
-
+    '''
            
 
 if __name__ == "__main__":

@@ -4,14 +4,14 @@ import re
 
 class CentauroSpider(scrapy.Spider):
     name = "centauro"
-    allowed_domains = ["centauro.com.br"]
+    allowed_domains = ["www.centauro.com.br"]
     start_urls = ["https://www.centauro.com.br/nav/produto/tenis/esportes/academiafitness/genero/masculino"]
     page_count = 1
     max_page = 10
 
     def parse(self, response):
         
-        products = response.css('main[data-testid="grid-products"] section')
+        products = response.css('a.ProductCard-styled__Card-sc-bbe8eefb-0.kOXydP')
         for product in products:
             # Extraindo a avaliação do texto
             rating_div = product.css('div[data-testid="product-rating"]::attr(aria-label)').get()
@@ -21,12 +21,6 @@ class CentauroSpider(scrapy.Spider):
                 if match:
                     rating = match.group(1)
             
-            brand_and_name = product.css('p.Typographystyled__Paragraph-sc-bdxvrr-1::text').get()
-            if brand_and_name:
-                brand, name = self.extract_brand_and_name(brand_and_name)
-            else:
-                brand, name = None, None
-                
             yield {
                 'brand': product.css('p.Typographystyled__Paragraph-sc-bdxvrr-1.knvuZc.ProductCard-styled__Title-sc-bbe8eefb-3.fnPvPK::text').get().split(" ")[1],
                 'name': product.css('p.Typographystyled__Paragraph-sc-bdxvrr-1.knvuZc.ProductCard-styled__Title-sc-bbe8eefb-3.fnPvPK::text').get().split("-")[0],

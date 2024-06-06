@@ -2,20 +2,18 @@
 
 ## Descrição
 
-Imagine que uma marca de tênis deseja avaliar sua relevância no ecossistema do Mercado Livre, Magalu, Centauro e Netshoes. Para isso, é necessário obter **KPIs** relacionados ao segmento de tênis nessas plataformas. O objetivo é coletar informações detalhadas e implementar um dashboard que facilite a visualização e análise desses dados.
+Imagine que uma marca de tênis deseja avaliar sua relevância no ecossistema do Mercado Livre e Centauro. Para isso, é necessário obter **KPIs** relacionados ao segmento de tênis nessas plataformas. O objetivo é coletar informações detalhadas e implementar um dashboard que facilite a visualização e análise desses dados.
 
 ## Proposta do Projeto
 
-Fomos contratados por uma grande empresa para fazer uma pesquisa de mercado na categoria de tênis esportivos dentro de diversos e-commerces: Mercado Livre, Magalu, Centauro e Netshoes. O objetivo dessa empresa é avaliar:
+Fomos contratados por uma grande empresa para fazer uma pesquisa de mercado na categoria de tênis esportivos dentro de diversos e-commerces: Mercado Livre e Centauro. O objetivo dessa empresa é avaliar:
 - 👟 Quais marcas são mais encontradas até a 10ª página
 - 💰 Qual o preço médio por marca
 - ⭐ Qual a satisfação por marca
 
 # Fontes de Dados
 - Mercado Livre
-- Magalu
 - Centauro
-- Netshoes
 
 ## Etapas do Projeto
 
@@ -55,8 +53,6 @@ Desenvolvimento de um **dashboard interativo** usando **Streamlit** para consumi
 data/
 │── centauro.jsonl
 │── mercado_livre.jsonl
-│── magalu.jsonl
-│── netshoes.jsonl
 │── quotes.db
 pics/
 │── arquitetura.png
@@ -65,16 +61,12 @@ src/
 │   ├── spiders/
 │   │   └── centauro.py
 │   │   └── mercadolivre.py
-│   │   └── magalu.py
-│   │   └── netshoes.py
 │   ├── pipelines.py
 │   ├── items.py
 │   ├── settings.py
 ├── transformacao/
 │   ├── centauro.py
 │   ├── mercadolivre.py
-│   ├── magalu.py
-│   ├── netshoes.py
 ├── dashboard/
 │   ├── app.py
 ├── requirements.txt
@@ -103,8 +95,6 @@ Em seguida, para executar cada etapa, siga as instruções abaixo:
 cd src/coleta/
 scrapy crawl mercadolivre -o ../../data/mercado_livre.jsonl
 scrapy crawl centauro -o ../../data/centauro.jsonl
-scrapy crawl magalu -o ../../data/magalu.jsonl
-scrapy crawl netshoes -o ../../data/netshoes.jsonl
 ```
 
 ### Transformar e carregar os dados
@@ -112,8 +102,6 @@ scrapy crawl netshoes -o ../../data/netshoes.jsonl
 ```sh
 python src/transformacao/mercado_livre.py
 python src/transformacao/centauro.py
-python src/transformacao/magalu.py
-python src/transformacao/netshoes.py
 ```
 
 ### Visualizar Dashboard
@@ -125,3 +113,6 @@ streamlit run src/dashboard/app.py
 ## Análise dos Dados do dia 02/06/2024
 
 Análise dos dados aqui após extração dos dados
+
+## Melhorias Futuras
+- Adicionar mais fontes de dados: Magalu e Netshoes
