@@ -6,7 +6,7 @@ class MagaluSpider(scrapy.Spider):
     allowed_domains = ["www.magazineluiza.com.br"]
     start_urls = ["https://www.magazineluiza.com.br/busca/tenis%2Bmasculino/?from=clickSuggestion&filters=category---ES%2Bsubcategory---ELNN"]
     page_count = 1
-    max_pages = 3
+    max_pages = 10
 
     def parse(self, response):
         # Pegue os links para as páginas dos produtos
@@ -15,11 +15,13 @@ class MagaluSpider(scrapy.Spider):
             yield response.follow(link, callback=self.parse_product)
 
         # Verifica se deve continuar para a próxima página
+        '''
         if self.page_count < self.max_pages:
             self.page_count += 1
             next_page = self.start_urls[0] + f'&page={self.page_count}'
             if next_page:
                 yield scrapy.Request(url=next_page, callback=self.parse)
+        '''
 
     def parse_product(self, response):
 

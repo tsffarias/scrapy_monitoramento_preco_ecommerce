@@ -15,12 +15,13 @@ class NetshoesSpider(scrapy.Spider):
             yield response.follow(link, callback=self.parse_product)
 
         # Verifica se deve continuar para a próxima página
+        '''
         if self.page_count < self.max_page:
             self.page_count += 1
             next_page = f"{self.start_urls[0]}&departamento=running&tipo-de-produto=tenis-performance&nsCat=Artificial?page={self.page_count}"
             if next_page:
                 yield scrapy.Request(url=next_page, callback=self.parse)
-        
+        '''
 
     def parse_product(self, response):
         
