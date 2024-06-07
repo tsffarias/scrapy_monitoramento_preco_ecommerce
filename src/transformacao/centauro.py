@@ -46,6 +46,11 @@ else:
         df.loc[df['brand'] == 'adidas', 'brand'] = 'Adidas'
         df.loc[df['brand'] == 'Nikecourt', 'brand'] = 'Nike'
         df.loc[df['brand'] == 'ASICS', 'brand'] = 'Asics'
+        df.loc[df['brand'] == 'Under', 'brand'] = 'Under Armour'
+        df.loc[df['brand'] == 'De', 'brand'] = 'Under Armour'
+        df.loc[df['brand'] == 'Para', 'brand'] = 'Rock Fit'
+        df.loc[df['brand'] == 'Rock', 'brand'] = 'Rock Fit'
+        
         
         # Conectar ao banco de dados SQLite (ou criar um novo)
         conn = sqlite3.connect(db_path)

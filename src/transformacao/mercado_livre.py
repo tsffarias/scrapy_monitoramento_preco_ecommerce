@@ -30,7 +30,7 @@ else:
         df['reviews_rating_number'] = df['reviews_rating_number'].fillna(0).astype(float)
 
         # Remover os parênteses das colunas `reviews_amount`
-        df['reviews_amount'] = df['reviews_amount'].str.replace('[\(\)]', '', regex=True)
+        df['reviews_amount'] = df['reviews_amount'].str.replace(r'[\(\)]', '', regex=True)
         df['reviews_amount'] = df['reviews_amount'].fillna(0).astype(int)
 
         # Tratar os preços como floats e calcular os valores totais

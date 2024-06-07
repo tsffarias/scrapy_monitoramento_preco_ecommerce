@@ -18,7 +18,7 @@ Fomos contratados por uma grande empresa para fazer uma pesquisa de mercado na c
 ## Etapas do Projeto
 
 ### Etapa 1: Extração dos Dados
-Utilização de **Web Scraping** com a biblioteca **Scrapy** para obter os dados necessários do Mercado Livre, Magalu, Centauro e Netshoes.
+Utilização de **Web Scraping** com a biblioteca **Scrapy** para obter os dados necessários do Mercado Livre e Centauro.
 
 ### Etapa 2: Transformação dos Dados
 Processamento e limpeza dos dados utilizando a biblioteca **Pandas** para garantir que estejam prontos para análise.
@@ -110,9 +110,9 @@ python src/transformacao/centauro.py
 streamlit run src/dashboard/app.py
 ```
 
-## Análise dos Dados do dia 02/06/2024
+## Análise dos Dados do dia 07/06/2024
 
 Análise dos dados aqui após extração dos dados
 
 ## Melhorias Futuras
-- Adicionar mais fontes de dados: Magalu e Netshoes
+- Adicionar mais fontes de dados: Magalu, Netshoes e Amazon
