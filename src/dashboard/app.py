@@ -110,14 +110,6 @@ class Dashboard:
             col1.write(':blue[Mercado Livre]')
             col2.write('Setor de Tênis corrida masculino')
             col3.write('https://lista.mercadolivre.com.br/tenis-corrida-masculino')
-        
-        '''
-        with st.container():
-            col1,col2,col3=st.columns(3)
-            col1.write(':blue[Magalu]')
-            col2.write('Setor de Tênis corrida masculino')
-            col3.write('https://www.magazineluiza.com.br/busca/tenis%2Bmasculino/?from=clickSuggestion&filters=category---ES%2Bsubcategory---ELNN')
-        '''
 
         with st.container():
             col1,col2,col3=st.columns(3)
@@ -125,13 +117,6 @@ class Dashboard:
             col2.write('Setor de Tênis para academia masculino')
             col3.write('https://www.centauro.com.br/nav/produto/tenis/esportes/academiafitness/genero/masculino')
         
-        '''
-        with st.container():
-            col1,col2,col3=st.columns(3)
-            col1.write(':blue[Netshoes]')
-            col2.write('Setor de Tênis corrida masculino')
-            col3.write('https://www.netshoes.com.br/running/tenis-performance?genero=masculino')
-        '''
         
         st.divider()
         

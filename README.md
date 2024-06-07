@@ -42,8 +42,6 @@ Desenvolvimento de um **dashboard interativo** usando **Streamlit** para consumi
 ![arquitetura](/pics/arquitetura.png)
 
 ### Dashboard
-- Link dashboard: (Adicionar link Aqui)
-
 ![dashboard](/pics/mercado_livre.png)
 
 ## Estrutura de Diretórios
@@ -112,7 +110,71 @@ streamlit run src/dashboard/app.py
 
 ## Análise dos Dados do dia 07/06/2024
 
-Análise dos dados aqui após extração dos dados
+### 📊 Análise Descritiva dos Dados
 
-## Melhorias Futuras
+#### Mercado Livre:
+- **Marcas mais comuns**:
+  - **Olympikus**: 148 produtos
+  - **Mizuno**: 40 produtos
+  - **Fila**: 29 produtos
+
+- **Preço médio por marca**:
+  - **MVP FITNESS**: R$ 360,00
+  - **FILA**: R$ 301,38
+  - **NEW BALANCE**: R$ 257,47
+  - **PUMA**: R$ 256,85
+  - **QIX**: R$ 237,00
+  - **UNDER ARMOUR**: R$ 223,77
+  - **ADIDAS**: R$ 216,40
+  - **MIZUNO**: R$ 214,21
+  - **N&W**: R$ 189,00
+  - **MZ**: R$ 183,50
+
+- **Satisfação por marca (por maior número de quantidade de avaliação)**:
+  - **OLYMPIKUS**: 4,73 e quantidade de avaliações: 119
+  - **MIZUNO**: 4,59 e quantidade de avaliações: 28
+  - **FILA**: 4,78 e quantidade de avaliações: 25
+
+#### Centauro:
+- **Marcas mais comuns**:
+  - **Olympikus**: 104 produtos
+  - **Everlast**: 76 produtos
+  - **Under Armour**: 73 produtos
+
+- **Preço médio por marca**:
+  - **New Balance**: R$ 974
+  - **Reebok**: R$ 697
+  - **Nike**: R$ 582
+  - **Asics**: R$ 448
+  - **Adidas**: R$ 414
+  - **Armour**: R$ 399
+  - **Bull**: R$ 399
+  - **Under Armour**: R$ 388
+  - **Skechers**: R$ 323
+
+- **Satisfação por marca (por maior número de quantidade de avaliação)**:
+  - **Nike**: 4,00 e quantidade de avaliações: 18
+  - **Olympikus**: 4,62 e quantidade de avaliações: 7
+  - **Under Armour**: 3,60 e quantidade de avaliações: 5
+
+
+### 💡 Insights Relevantes:
+
+1. **Marcas Mais Comuns**:
+   - **Mercado Livre**: A marca Olympikus é a mais comum com 148 produtos, seguida por Mizuno com 40 produtos e Fila com 29 produtos.
+   - **Centauro**: A Olympikus também lidera com 104 produtos, seguida por Everlast com 76 produtos e Under Armour com 73 produtos.
+
+2. **Preço Médio por Marca**:
+   - **Mercado Livre**: As marcas com os preços médios mais altos são MVP FITNESS (R$ 360,00), FILA (R$ 301,38) e NEW BALANCE (R$ 257,47).
+   - **Centauro**: As marcas com os preços médios mais altos são New Balance (R$ 974), Reebok (R$ 697) e Nike (R$ 582).
+
+3. **Satisfação por Marca (com base na quantidade de avaliações)**:
+   - **Mercado Livre**: A Olympikus possui uma alta satisfação com uma média de 4,73 (119 avaliações), seguida por Mizuno com uma média de 4,59 (28 avaliações) e Fila com uma média de 4,78 (25 avaliações).
+   - **Centauro**: A Nike tem uma média de satisfação de 4,00 com 18 avaliações, Olympikus com 4,62 e 7 avaliações, e Under Armour com 3,60 e 5 avaliações.
+
+Esses insights mostram que a Olympikus é uma marca muito presente e bem avaliada em ambas as plataformas, indicando uma forte aceitação no mercado. As marcas com preços mais altos no Mercado Livre são MVP FITNESS, FILA e NEW BALANCE, enquanto na Centauro, as marcas mais caras são New Balance, Reebok e Nike, o que pode indicar uma diferenciação no mercado de produtos premium. A satisfação média elevada de marcas como Olympikus, Mizuno e Fila no Mercado Livre, e Nike e Olympikus na Centauro, sugere uma boa aceitação dos consumidores.
+
+Essas análises fornecem uma visão clara das tendências de mercado e preferências do consumidor nos e-commerces analisados, permitindo que a marca de tênis avalie sua relevância e competitividade no mercado.
+
+## Melhorias Futuras no Projeto
 - Adicionar mais fontes de dados: Magalu, Netshoes e Amazon
