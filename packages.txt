@@ -1,4 +1,0 @@
-build-essential
-python3-dev
-gcc
-libffi-dev
