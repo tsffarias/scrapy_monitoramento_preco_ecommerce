@@ -42,6 +42,8 @@ Desenvolvimento de um **dashboard interativo** usando **Streamlit** para consumi
 ![arquitetura](/pics/arquitetura.png)
 
 ### Dashboard
+- Dashboard Streamlit Link: [Monitoramento de Preços e Produtos E-commerce](https://scrapymonitoramentoprecotenis.streamlit.app/)
+
 ![dashboard](/pics/mercado_livre.png)
 
 ## Estrutura de Diretórios

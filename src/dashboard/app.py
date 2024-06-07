@@ -152,7 +152,7 @@ class Dashboard:
 
         # KPI 3: Preço médio novo (em reais)
         average_new_price = df['new_price_reais'].mean()
-        col3.metric(label="Preço Médio Novo (R$)", value=f"{average_new_price:.2f}")
+        col3.metric(label="Preço Médio (R$)", value=f"{average_new_price:.2f}")
 
         st.divider()
 
@@ -343,7 +343,7 @@ class Dashboard:
 
         # KPI 3: Preço médio novo (em reais)
         average_new_price = df['new_price'].mean()
-        col3.metric(label="Preço Médio Novo (R$)", value=f"{average_new_price:.2f}")
+        col3.metric(label="Preço Médio (R$)", value=f"{average_new_price:.2f}")
 
         st.divider()
 
