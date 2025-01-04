@@ -4,6 +4,10 @@
 
 Imagine que uma marca de tênis deseja avaliar sua relevância no ecossistema do Mercado Livre e Centauro. Para isso, é necessário obter **KPIs** relacionados ao segmento de tênis nessas plataformas. O objetivo é coletar informações detalhadas e implementar um dashboard que facilite a visualização e análise desses dados.
 
+### Diagrama
+
+![arquitetura](/pics/arquitetura.png)
+
 ## Proposta do Projeto
 
 Fomos contratados por uma grande empresa para fazer uma pesquisa de mercado na categoria de tênis esportivos dentro de diversos e-commerces: Mercado Livre e Centauro. O objetivo dessa empresa é avaliar:
@@ -14,6 +18,9 @@ Fomos contratados por uma grande empresa para fazer uma pesquisa de mercado na c
 # Fontes de Dados
 - Mercado Livre
 - Centauro
+
+### Dashboard
+![dashboard](/pics/mercado_livre.png)
 
 ## Etapas do Projeto
 
@@ -36,13 +43,6 @@ Desenvolvimento de um **dashboard interativo** usando **Streamlit** para consumi
 - **Scrapy**: Framework utilizado para realizar o web scraping e extrair dados da web.
 - **Streamlit**: Framework utilizado para criar aplicações web interativas e visualizar os dados extraídos.
 - **SQLite3**: Banco de dados utilizado para armazenar os dados transformados.
-
-### Diagrama
-
-![arquitetura](/pics/arquitetura.png)
-
-### Dashboard
-![dashboard](/pics/mercado_livre.png)
 
 ## Estrutura de Diretórios
 
@@ -83,6 +83,26 @@ ou
 
 ```sh
 pip install -r requirements.txt
+```
+
+## Instalação via Docker
+Caso queira realizar a instalação via Docker:
+1. Antes de rodar o Docker, crie um arquivo `.env` na raiz do projeto com os seguintes valores (exemplo está no arquivo .env_example):
+
+```plaintext
+DB_HOST_PROD=postgres
+DB_PORT_PROD=5432
+DB_NAME_PROD=mydatabase
+DB_USER_PROD=user
+DB_PASS_PROD=password
+PGADMIN_EMAIL=email_pgadmin
+PGADMIN_PASSWORD=password_pgadmin
+```
+
+2. Para iniciar a aplicação, execute:
+
+```bash
+docker-compose up -d --build
 ```
 
 Em seguida, para executar cada etapa, siga as instruções abaixo:

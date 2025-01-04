@@ -1,0 +1,56 @@
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ${DB_NAME_PROD}
+      POSTGRES_USER: ${DB_USER_PROD}
+      POSTGRES_PASSWORD: ${DB_PASS_PROD}
+    volumes:
+      - postgresql_bin:/usr/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+      - ./files:/files
+      - ./db_table.sql:/docker-entrypoint-initdb.d/db_table.sql
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - 55432:5432
+    networks:
+      - mynetwork
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      PGADMIN_LISTEN_PORT: 5050
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - postgresql_bin:/usr/lib/postgresql
+      - pgadmin_root_prefs:/root/.pgadmin
+      - pgadmin_working_dir:/var/lib/pgadmin
+      - ./files:/files
+    ports:
+      - 5050:5050
+    depends_on:
+      - postgres
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  pgadmin_root_prefs:
+    driver: local
+  pgadmin_working_dir:
+    driver: local
+  postgresql_data:
+    driver: local
+  postgresql_bin:
+    driver: local
