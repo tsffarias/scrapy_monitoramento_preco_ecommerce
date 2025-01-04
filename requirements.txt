@@ -66,8 +66,8 @@ tldextract==5.1.2
 toml==0.10.2
 toolz==0.12.1
 tornado==6.4
-Twisted==24.3.0
-twisted-iocpsupport==1.0.3
+Twisted
+twisted-iocpsupport
 typing_extensions==4.12.0
 tzdata==2024.1
 urllib3==2.2.1
